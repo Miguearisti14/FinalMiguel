@@ -2,7 +2,7 @@ import java.io.FileReader;
 import java.io.BufferedReader;
 import java.io.File;
 
-public class App {
+public class Final {
 
     public static String[][] llenarDiasSemana(String fileName) {
         for (int i = 0; i < fileName.length(); i++) {                     
