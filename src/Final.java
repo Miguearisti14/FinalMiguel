@@ -5,51 +5,58 @@ import java.io.File;
 public class Final {
 
     public static String[][] llenarDiasSemana(String fileName) {
-        for (int i = 0; i < fileName.length(); i++) {                     
-
-                FileReader fr = null;
-                BufferedReader br = null; 
+        
+        String[][] resultados = new String[100][5];
+        File archivo = null;
+        FileReader fr = null;
+        BufferedReader br = null; 
                    
             try {  
+                archivo = new File(fileName);
+                fr = new FileReader(fileName);
 
-            fr = new FileReader(fileName);
-            String linea;
+                String linea="";
 
-           
-                while ((linea = br.readLine()) != null) {
-                String[] subcadenas = linea.split(";");
-
-                    for (String subcadena : subcadenas) {
-                   
+                for (int i = 0; i < 100; i++) {
+                    String[] split = linea.split(";");
+                    resultados[i] = split; 
                 }
+      
             }
             
-            } catch (Exception e) {
+             catch (Exception e) {
             System.out.println(e.getMessage());
+            System.out.println("Error al leer el archivo");
 
-                } finally {
-                    try {
-                fr.close();
-                        } catch (Exception e) {
-                
-                        }
-                } 
+            }finally{
+                try {
+                    if (null != fr) {
+                        fr.close();
+                        
+                    }
+                } catch (Exception e2) {
+                    e2.getMessage();
+                }
+
+            }
+
+            return resultados;           
             
             
-        }
+        
 
     }
 
     public static void main(String[] args) throws Exception {
-        File archivo1 = null;
         
-        String[][] lunesData = new String[100][5];
-        String[][] martesData = new String[100][5];
-        String[][] miercolesData = new String[100][5];
-        String[][] juevesData = new String[100][5];
-        String[][] viernesData = new String[100][5];
-        String[][] sabadoData = new String[100][5];
-        String[][] domingoData = new String[100][5];
+        
+        String[][] lunesData = llenarDiasSemana("lunes.txt");
+        String[][] martesData = llenarDiasSemana("martes.txt");
+        String[][] miercolesData = llenarDiasSemana("miercoles.txt");
+        String[][] juevesData = llenarDiasSemana("jueves.txt");
+        String[][] viernesData = llenarDiasSemana("viernes.txt");
+        String[][] sabadoData = llenarDiasSemana("sabado.txt");
+        String[][] domingoData = llenarDiasSemana("domingo.txt");
 
         String[] dias = {"lunes.txt","martes.txt","miercoles.txt","jueves.txt","viernes.txt","sabado.txt","domingo.txt"};
         
