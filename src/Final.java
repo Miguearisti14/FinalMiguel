@@ -14,14 +14,19 @@ public class Final {
             try {  
                 archivo = new File(fileName);
                 fr = new FileReader(fileName);
+                br = new BufferedReader(fr);
 
-                String linea="";
+                String linea;
+
+                while((linea = br.readLine()) != null){
 
                 for (int i = 0; i < 100; i++) {
                     String[] split = linea.split(";");
-                    resultados[i] = split; 
+                    resultados[i] = split;
+                    linea = br.readLine();
+                    
                 }
-      
+            }
             }
             
              catch (Exception e) {
@@ -50,15 +55,15 @@ public class Final {
     public static void main(String[] args) throws Exception {
         
         
-        String[][] lunesData = llenarDiasSemana("lunes.txt");
-        String[][] martesData = llenarDiasSemana("martes.txt");
-        String[][] miercolesData = llenarDiasSemana("miercoles.txt");
-        String[][] juevesData = llenarDiasSemana("jueves.txt");
-        String[][] viernesData = llenarDiasSemana("viernes.txt");
-        String[][] sabadoData = llenarDiasSemana("sabado.txt");
-        String[][] domingoData = llenarDiasSemana("domingo.txt");
+        String[][] lunesData = llenarDiasSemana("src\\lunes.txt");
+        String[][] martesData = llenarDiasSemana("src\\martes.txt");
+        String[][] miercolesData = llenarDiasSemana("src\\miercoles.txt");
+        String[][] juevesData = llenarDiasSemana("src\\jueves.txt");
+        String[][] viernesData = llenarDiasSemana("src\\viernes.txt");
+        String[][] sabadoData = llenarDiasSemana("src\\sabado.txt");
+        String[][] domingoData = llenarDiasSemana("src\\domingo.txt");
 
-        String[] dias = {"lunes.txt","martes.txt","miercoles.txt","jueves.txt","viernes.txt","sabado.txt","domingo.txt"};
+        
         
 
          
