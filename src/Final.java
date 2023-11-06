@@ -61,25 +61,25 @@ public class Final {
     // * Funcion para calcular las ventas totales en un dia */
     public static double ventasPorDia(String[][] resultados) {
 
-        double transaccion;
+        double numTransacciones;
         double ventasDia = 0;
 
         // * Ciclo para recorrer todas las lineas de un archivo */
-        for (int x = 0; x < 100; x++) {
+        for (int dia = 0; dia < 100; dia++) {
 
             // * Variable que representa el valor en la posicion de la matriz */
-            transaccion = Double.parseDouble(resultados[x][1]);
+            numTransacciones = Double.parseDouble(resultados[dia][1]);
 
-            // * If para saber a cuanto equivale la transaccion */
-            if (Integer.parseInt(resultados[x][2]) == 1) {
-                transaccion = transaccion * 2;
+            // * If para saber a cuanto equivale la numTransacciones */
+            if (Integer.parseInt(resultados[dia][2]) == 1) {
+                numTransacciones = numTransacciones * 2;
             }
-            if (Integer.parseInt(resultados[x][2]) == 2) {
-                transaccion = transaccion * 2.8;
+            if (Integer.parseInt(resultados[dia][2]) == 2) {
+                numTransacciones = numTransacciones * 2.8;
             }
 
             // * Sumatoria de cada linea en la posicion requerida */
-            ventasDia += transaccion;
+            ventasDia += numTransacciones;
 
         }
 
@@ -113,20 +113,63 @@ public class Final {
         return horaDeCadaDia;
     }
 
-    //* Funcion para buscar el ID */
+    // * Funcion para buscar el ID */
     public static String searchId(String[][] resultados, String id) {
         String response = "";
 
-        for (int x = 0; x < resultados.length; x++) {
-            if (resultados[x][0].equals(id)) {
-                for (int j = 0; j < resultados[x].length; j++) {
-                    response += resultados[x][j] + " ";
+        for (int dia = 0; dia < resultados.length; dia++) {
+            if (resultados[dia][0].equals(id)) {
+                for (int j = 0; j < resultados[dia].length; j++) {
+                    response += resultados[dia][j] + " ";
                 }
                 break;
             }
         }
 
         return response;
+    }
+
+    // * Funcion para obtener transacciones */
+
+    public static void getTransacciones(String[][] resultados, String dia, int numTransacciones) {
+
+        System.out.println("\n---------------------------------------------");
+        System.out.println("A continuación " + numTransacciones + " transacciones del " + dia);
+        System.out.println("---------------------------------------------");
+        System.out.println();
+        System.out.println("*-------------*-------------*");
+        for (int i = 0; i < numTransacciones; i++) {
+            System.out.println("ID: " + resultados[i][0]);
+            System.out.println("Envió: $" + resultados[i][1]);
+            switch (resultados[i][2]) {
+                case "0":
+                    System.out.println("Remitente: natural");
+                    break;
+                case "1":
+                    System.out.println("Remitente: jurídica");
+                    break;
+                case "2":
+                    System.out.println("Remitente: ONG");
+                    break;
+            }
+            switch (resultados[i][3]) {
+                case "0":
+                    System.out.println("Receptor: natural");
+                    break;
+                case "1":
+                    System.out.println("Receptor: jurídica");
+                    break;
+                case "2":
+                    System.out.println("Receptor: ONG");
+                    break;
+            }
+            System.out.println("Hora del día: " + resultados[i][4]);
+            System.out.println("*-------------*-------------*");
+            System.out.println();
+            System.out.println("*-------------*-------------*");
+
+        }
+
     }
 
     public static void main(String[] args) throws Exception {
@@ -200,7 +243,6 @@ public class Final {
             }
         }
 
-      
         // * Esta parte se encuentra activa en el menu */
         // String separador = "";
         // for (HashMap.Entry<String, Integer> entry : horaDeCadaDia.entrySet()) {
@@ -209,7 +251,6 @@ public class Final {
         // separador = " y ";
         // }
         // }
-     
 
         // * Menu de seleccion */
         Scanner scanner2 = new Scanner(System.in);
@@ -218,15 +259,15 @@ public class Final {
         System.out.println("| ** Bienvenido a la Billetera Digital NV ** |");
         System.out.println("----------------------------------------------");
 
-        //* Ciclo para que depende de la respuesta se vuelva a mostrar en menu */
+        // * Ciclo para que depende de la respuesta se vuelva a mostrar en menu */
         int respuesta = 0;
         while (respuesta == 0) {
 
             System.out.println("Pulse el numero del proceso que desea realizar");
             System.out.println("");
-            System.out.println("1. Consultar el dia en el que mas dinero se \n   movio");
+            System.out.println("1. Consultar el dia en el que mas dinero se movio");
             System.out.println("");
-            System.out.println("2. Consultar la hora en que mas dinero se mueve \n   en promedio");
+            System.out.println("2. Consultar la hora en que mas dinero se mueve en promedio");
             System.out.println("");
             System.out.println("3. Encontrar informacion con tu numero de ID");
             System.out.println("");
@@ -234,21 +275,23 @@ public class Final {
             System.out.println("");
             System.out.println("0. Para finalizar el programa");
 
-            //* Try en caso de respuestas no numericas */
+            // * Try en caso de respuestas no numericas */
             try {
                 respuesta = scanner2.nextInt();
-                
-                //* Opciones del menu */
+
+                // * Opciones del menu */
                 switch (respuesta) {
                     case 1:
-                        System.out.println("-------------------");
-                        System.out.println("\nCalculando...");
+                        System.out.println("\n-------------------");
+                        System.out.println("Calculando...");
+                        System.out.println("-------------------\n");
                         System.out.println("El dia que mas ventas tuvo fue el " + mayoresVentas);
                         break;
 
                     case 2:
-                        System.out.println("-------------------");
-                        System.out.println("\nCalculando...");
+                        System.out.println("\n-------------------");
+                        System.out.println("Calculando...");
+                        System.out.println("-------------------\n");
                         System.out.print("La hora en la que más dinero se mueve es la hora " + horaMasRepetida
                                 + " con mayoría en ");
 
@@ -260,20 +303,21 @@ public class Final {
                                 separador = " y ";
                             }
                         }
+                        System.out.println();
                         break;
 
                     case 3:
-                     //* Para encontrar la info ingresando el ID */
+                        // * Para encontrar la info ingresando el ID */
                         Scanner scanner = new Scanner(System.in);
                         String result;
 
-                        //* Busqueda en cada uno de los archivos */
+                        // * Busqueda en cada uno de los archivos */
                         do {
                             System.out.println("-----------------------");
                             System.out.println("Ingrese el ID a buscar: ");
                             System.out.println("-----------------------");
                             String id = scanner.nextLine();
-                            
+
                             result = searchId(lunesData, id);
                             if (!result.isEmpty()) {
                                 break;
@@ -288,7 +332,6 @@ public class Final {
                             }
                             result = searchId(juevesData, id);
                             if (!result.isEmpty()) {
-                                System.out.println(result);
                                 break;
                             }
                             result = searchId(viernesData, id);
@@ -309,18 +352,19 @@ public class Final {
                             System.out.println();
 
                         } while (result.isEmpty());
-                        
-                        //* Division en un array de cada uno de los elementos de esa linea */
+
+                        // * Division en un array de cada uno de los elementos de esa linea */
                         String[] split = new String[5];
                         for (int j = 0; j < split.length; j++) {
                             split = result.split(" ");
                         }
 
-                        //* Impresion de cada elemento */
+                        // * Impresion de cada elemento */
+                        System.out.println("\n-----------------");
                         System.out.println("ID: " + split[0]);
                         System.out.println("Envió: $" + split[1]);
 
-                        //* Switchs para saber de que tipo es el receptor y el remitente*/
+                        // * Switchs para saber de que tipo es el receptor y el remitente*/
                         switch (split[2]) {
                             case "0":
                                 System.out.println("Remitente: natural");
@@ -345,9 +389,65 @@ public class Final {
                         }
                         System.out.println("Hora del día: " + split[4]);
 
-                    
                         break;
 
+                    case 4:
+                        // * Imprimir cierta cantidad de transacciones de un dia */
+                        // * Solicitud del dia y el numero de transacciones */
+
+                        int contador = 0;
+                        while (contador == 0) {
+
+                            // * Try en caso de un error al ingresar el numero de transacciones */
+                            try {
+                                System.out.println("\n----------------");
+                                System.out.println("Ingresa el día ");
+                                System.out.println("----------------");
+                                String dia = scanner2.next();
+                                System.out.println("\n-----------------------------------------------------");
+                                System.out.println("Ingresa cuántas transacciones del " + dia + " quieres ver ");
+                                System.out.println("-----------------------------------------------------");
+                                int numTransacciones = scanner2.nextInt();
+
+                                // * If para cada que se llame al achivo del dia que corresponde */
+                                if (dia.equals("lunes")) {
+                                    getTransacciones(lunesData, dia, numTransacciones);
+                                    contador++;
+                                } else if (dia.equals("martes")) {
+                                    getTransacciones(martesData, dia, numTransacciones);
+                                    contador++;
+                                } else if (dia.equals("miercoles")) {
+                                    getTransacciones(miercolesData, dia, numTransacciones);
+                                    contador++;
+                                } else if (dia.equals("jueves")) {
+                                    getTransacciones(juevesData, dia, numTransacciones);
+                                    contador++;
+                                } else if (dia.equals("viernes")) {
+                                    getTransacciones(viernesData, dia, numTransacciones);
+                                    contador++;
+                                } else if (dia.equals("sabado")) {
+                                    getTransacciones(sabadoData, dia, numTransacciones);
+                                    contador++;
+                                } else if (dia.equals("domingo")) {
+                                    getTransacciones(domingoData, dia, numTransacciones);
+                                    contador++;
+
+                                    //* En caso de dia no valido */
+                                } else {
+                                    System.out.println("\n--------------------------------");
+                                    System.out.println("Ingrese un dia valido");
+                                    System.out.println("--------------------------------\n");
+                                }
+                            } catch (Exception e) {
+                                System.out.println("\n--------------------------------");
+                                System.out.println("Ingrese un numero valido");
+                                System.out.println("--------------------------------\n");
+                                scanner2.next();
+                            }
+                        }
+                        break;
+
+                    // * Para finalizar */
                     case 0:
                         System.out.println("--------------------");
                         System.out.println("Programa finalizado");
@@ -356,6 +456,7 @@ public class Final {
                         System.exit(0);
                         break;
 
+                    // * En caso de que pongan un numero diferente a los del menu */
                     default:
                         System.out.println("*************************");
                         System.out.println("Ingrese un numero valido");
@@ -363,7 +464,7 @@ public class Final {
                         break;
                 }
 
-                //* If para preguntar si se van a hacer mas operaciones */
+                // * If para preguntar si se van a hacer mas operaciones */
                 if (respuesta != 0) {
 
                     int respuesta2 = 0;
@@ -372,13 +473,13 @@ public class Final {
                         System.out.println("------------------------------");
                         System.out.println("Desea realizar otra pregunta?.\n1. si\n2. No, finalizar programa");
 
-                        //* Try en caso de numeros no validos */
+                        // * Try en caso de numeros no validos */
                         try {
                             respuesta2 = scanner2.nextInt();
                             if (respuesta2 == 1) {
                                 respuesta = 0;
-                            } else if(respuesta2 == 2){
-                                System.out.println("\n--------------------");
+                            } else if (respuesta2 == 2) {
+                                System.out.println("--------------------");
                                 System.out.println("Programa finalizado");
                                 System.out.println("--------------------");
 
@@ -386,16 +487,16 @@ public class Final {
                                 System.exit(0);
                             }
 
-                            else{
+                            else {
                                 System.out.println("*************************");
                                 System.out.println("Ingrese un numero valido");
                                 System.out.println("*************************");
                             }
                         } catch (InputMismatchException e) {
-                            System.out.println("\n*************************");
+                            System.out.println("*************************");
                             System.out.println("Ingrese un valor numerico");
                             System.out.println("*************************");
-                            
+
                             scanner2.next();
                         }
                     }
